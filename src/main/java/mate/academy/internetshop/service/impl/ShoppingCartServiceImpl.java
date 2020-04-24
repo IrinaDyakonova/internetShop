@@ -42,7 +42,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .filter(s -> s.getUser().getId().equals(userId))
                 .findFirst()
                 .get();
-
     }
 
     @Override
