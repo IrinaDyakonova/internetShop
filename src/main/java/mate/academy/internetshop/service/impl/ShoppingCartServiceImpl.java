@@ -1,5 +1,6 @@
 package mate.academy.internetshop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import mate.academy.internetshop.dao.ShoppingCartDao;
 import mate.academy.internetshop.lib.Inject;
@@ -15,35 +16,38 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
-        ShoppingCart newShoppingCart = shoppingCartDao.create(shoppingCart);
-        newShoppingCart.getProducts().add(product);
-        return shoppingCartDao.update(newShoppingCart);
+        shoppingCart.getProducts().add(product);
+        return shoppingCartDao.update(shoppingCart);
     }
 
     @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        return shoppingCart.getProducts().removeIf(p -> p.getId().equals(product.getId()));
+        return shoppingCart
+                .getProducts()
+                .removeIf(p -> p.getId().equals(product.getId()));
     }
 
     @Override
     public void clear(ShoppingCart shoppingCart) {
-        shoppingCart.getProducts().clear();
+        List<Product> newProductListOfUser = new ArrayList<>();
+        shoppingCart.setProducts(newProductListOfUser);
         shoppingCartDao.update(shoppingCart);
     }
 
     @Override
     public ShoppingCart getByUserId(Long userId) {
-        return shoppingCartDao.get(userId).get();
+        return shoppingCartDao
+                .getAll()
+                .stream()
+                .filter(s -> s.getUser().getId().equals(userId))
+                .findFirst()
+                .get();
+
     }
 
     @Override
     public List<Product> getAllProducts(ShoppingCart shoppingCart) {
-        return shoppingCartDao
-                .getAll()
-                .stream()
-                .filter(shoppingCart1 -> shoppingCart1.getId().equals(shoppingCart.getId()))
-                .findFirst()
-                .get()
+        return shoppingCart
                 .getProducts();
     }
 }

@@ -1,5 +1,6 @@
 package mate.academy.internetshop;
 
+import mate.academy.internetshop.db.Storage;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.Product;
@@ -75,15 +76,16 @@ public class Application {
         ShoppingCartService shoppingCartService = (ShoppingCartService) injector
                 .getInstance(ShoppingCartService.class);
         ShoppingCart shoppingCart1 = new ShoppingCart(user1);
-        System.out.println("\nDisplay shoppingCart information about "
-                + "the shoppingCart1 with user1 before create by shoppingCartService");
-        System.out.println(shoppingCart1.toString());
+        shoppingCart1.setId(1L);
+        Storage.addShoppingCart(shoppingCart1);
         shoppingCartService.addProduct(shoppingCart1, table);
         shoppingCartService.addProduct(shoppingCart1, chair);
         System.out.println("\nDisplay shoppingCart information about "
                 + "the shoppingCart1 after addProduct by shoppingCartService");
         System.out.println(shoppingCart1.toString());
         ShoppingCart shoppingCart2 = new ShoppingCart(user1);
+        shoppingCart2.setId(2L);
+        Storage.addShoppingCart(shoppingCart2);
         System.out.println("\nDisplay shoppingCart information about "
                 + "the shoppingCart2 with user1 before create by shoppingCartService");
         System.out.println(shoppingCart2.toString());
@@ -100,13 +102,13 @@ public class Application {
         System.out.println(shoppingCart2);
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
-        Order order1 = new Order(user1, shoppingCart1.getProducts());
+        Order order1 = orderService
+                .completeOrder(shoppingCart1.getProducts(), shoppingCart1.getUser());
         System.out.println("\nDisplay order information about the order1 "
                 + "with user1 and shoppingCart1 before create by shoppingCartService");
         System.out.println(order1.toString());
         System.out.println("\nDisplay order information user1 before completeOrder with user1");
         System.out.println(orderService.getUserOrders(user1));
-        orderService.completeOrder(shoppingCart1.getProducts(), shoppingCart1.getUser());
         System.out.println("\nDisplay order information after completeOrder with shoppingCart1");
         System.out.println(orderService.getAll());
         System.out.println("\nDisplay order information user2 through getUserOrders");

@@ -2,7 +2,6 @@ package mate.academy.internetshop.dao.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.ShoppingCartDao;
 import mate.academy.internetshop.db.Storage;
 import mate.academy.internetshop.lib.Dao;
@@ -13,14 +12,7 @@ public class ShoppingDaoImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
-        if (!Storage
-                .shoppingCarts
-                .stream()
-                .filter(shoppingCart1 -> shoppingCart1.getId().equals(shoppingCart.getId()))
-                .findFirst()
-                .isPresent()) {
-            Storage.addShoppingCart(shoppingCart);
-        }
+        Storage.addShoppingCart(shoppingCart);
         return shoppingCart;
     }
 
@@ -29,7 +21,7 @@ public class ShoppingDaoImpl implements ShoppingCartDao {
         return Storage
                 .shoppingCarts
                 .stream()
-                .filter(s -> s.getUser().getId().equals(id))
+                .filter(s -> s.getId().equals(id))
                 .findFirst();
     }
 
@@ -40,10 +32,14 @@ public class ShoppingDaoImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
-        IntStream.range(0, Storage.shoppingCarts.size())
-                .filter(s -> shoppingCart.getId().equals(Storage.shoppingCarts.get(s).getId()))
-                .forEach(i -> Storage.shoppingCarts.set(i, shoppingCart));
-        return shoppingCart;
+
+        ShoppingCart shoppingCartThatNeedUpdate = get(shoppingCart
+                .getId())
+                .get();
+
+        shoppingCartThatNeedUpdate.setProducts(shoppingCart.getProducts());
+        shoppingCartThatNeedUpdate.setUser(shoppingCart.getUser());
+        return shoppingCartThatNeedUpdate;
     }
 
     @Override
