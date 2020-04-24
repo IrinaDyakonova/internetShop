@@ -1,7 +1,49 @@
 package mate.academy.internetshop.service.impl;
 
+import java.util.List;
+import mate.academy.internetshop.dao.ShoppingCartDao;
+import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.model.ShoppingCart;
+import mate.academy.internetshop.service.ShoppingCartService;
 
 @Service
-public class ShoppingCartServiceImpl {
+public class ShoppingCartServiceImpl implements ShoppingCartService {
+    @Inject
+    ShoppingCartDao shoppingCartDao;
+
+    @Override
+    public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
+        ShoppingCart newShoppingCart = shoppingCartDao.create(shoppingCart);
+        newShoppingCart.getProducts().add(product);
+        return shoppingCartDao.update(newShoppingCart);
+    }
+
+    @Override
+    public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
+        return shoppingCart.getProducts().removeIf(p -> p.getId().equals(product.getId()));
+    }
+
+    @Override
+    public void clear(ShoppingCart shoppingCart) {
+        shoppingCart.getProducts().clear();
+        shoppingCartDao.update(shoppingCart);
+    }
+
+    @Override
+    public ShoppingCart getByUserId(Long userId) {
+        return shoppingCartDao.get(userId).get();
+    }
+
+    @Override
+    public List<Product> getAllProducts(ShoppingCart shoppingCart) {
+        return shoppingCartDao
+                .getAll()
+                .stream()
+                .filter(shoppingCart1 -> shoppingCart1.getId().equals(shoppingCart.getId()))
+                .findFirst()
+                .get()
+                .getProducts();
+    }
 }
