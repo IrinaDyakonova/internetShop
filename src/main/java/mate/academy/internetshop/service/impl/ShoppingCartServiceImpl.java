@@ -52,26 +52,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
-        return null;
+        return shoppingCartDao.create(shoppingCart);
     }
 
     @Override
     public ShoppingCart get(Long id) {
-        return null;
+        return shoppingCartDao.get(id).get();
     }
 
     @Override
     public List<ShoppingCart> getAll() {
-        return null;
+        return shoppingCartDao.getAll();
     }
 
     @Override
-    public ShoppingCart update(ShoppingCart element) {
-        return null;
+    public ShoppingCart update(ShoppingCart shoppingCart) {
+        return shoppingCartDao.update(shoppingCart);
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        return shoppingCartDao.delete(id);
     }
 }
