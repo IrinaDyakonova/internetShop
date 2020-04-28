@@ -16,7 +16,7 @@
 <form method="post" action="${pageContext.request.contextPath}/products/addProduct">
     Enter product name: <input type="text" name="name">
     <br>
-    Enter product cost: <input type="text" name="price">
+    Enter product cost: <input type="number" name="price" step="0.01">
     <br>
     <button type="submit">Register</button>
 </form>

@@ -9,7 +9,7 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
 
-public class CreatProductController extends HttpServlet {
+public class CreateProductController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private ProductService productService =
             (ProductService) INJECTOR.getInstance(ProductService.class);
@@ -26,12 +26,6 @@ public class CreatProductController extends HttpServlet {
             throws ServletException, IOException {
         String name = req.getParameter("name");
         String price = req.getParameter("price");
-        try {
-            Double.parseDouble(price);
-        } catch (Exception e) {
-            req.setAttribute("massage", "You have entered incorrect data on the cost of goods.");
-            req.getRequestDispatcher("/WEB-INF/views/products/addProduct.jsp").forward(req, resp);
-        }
         productService.create(new Product(name,Double.parseDouble(price)));
         resp.sendRedirect(req.getContextPath() + "/");
 
