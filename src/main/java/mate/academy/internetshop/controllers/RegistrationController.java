@@ -36,6 +36,8 @@ public class RegistrationController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("massage", "Your password and repeat password aren't the same.");
+            req.setAttribute("oldName", name);
+            req.setAttribute("oldLogin", login);
             req.getRequestDispatcher("/WEB-INF/views/users/registration.jsp").forward(req, resp);
         }
     }
