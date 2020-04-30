@@ -95,7 +95,7 @@
 
     <servlet>
         <servlet-name>addOrder</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.CreateOrderController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controllers.CompleteOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addOrder</servlet-name>
@@ -105,11 +105,11 @@
 
     <servlet>
         <servlet-name>showOrder</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.ShowOrderAfterCreatController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controllers.ShowNewOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>showOrder</servlet-name>
-        <url-pattern>/orders/ShowOrderAfterCreatController</url-pattern>
+        <url-pattern>/orders/new</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -132,7 +132,7 @@
 
     <servlet>
         <servlet-name>showListProductAdmin</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.ShowAllProductsAdminController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controllers.ShowAllProductsForAdminController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>showListProductAdmin</servlet-name>

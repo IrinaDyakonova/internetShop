@@ -13,7 +13,7 @@ import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
-public class CreateOrderController extends HttpServlet {
+public class CompleteOrderController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
@@ -31,7 +31,7 @@ public class CreateOrderController extends HttpServlet {
         shoppingCart.getProducts().clear();
         req.setAttribute("order", order);
         req.setAttribute("products", products);
-        req.getRequestDispatcher("/WEB-INF/views/orders/ShowOrderAfterCreatController.jsp")
+        req.getRequestDispatcher("/WEB-INF/views/orders/new.jsp")
                 .forward(req, resp);
     }
 }

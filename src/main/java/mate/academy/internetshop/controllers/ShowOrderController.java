@@ -20,7 +20,6 @@ public class ShowOrderController extends HttpServlet {
         Long id = Long.valueOf(userId);
         Order order = orderService.get(id);
         req.setAttribute("order", order);
-        req.setAttribute("products", order.getProducts());
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowOrderByOneUser.jsp")
                 .forward(req, resp);
     }

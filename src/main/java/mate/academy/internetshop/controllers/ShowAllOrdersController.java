@@ -22,7 +22,7 @@ public class ShowAllOrdersController extends HttpServlet {
         User user;
         if (allOrdersUser.isEmpty()) {
             user = null;
-            req.setAttribute("massage", "We don't have order order.");
+            req.setAttribute("massage", "You have no orders yet.");
         } else {
             user = allOrdersUser.get(0).getUser();
         }
