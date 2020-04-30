@@ -24,10 +24,7 @@
         <br>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
-
-
-
-
+<br>
     <a href="${pageContext.request.contextPath}/">Start page</a>
 </body>
 </html>

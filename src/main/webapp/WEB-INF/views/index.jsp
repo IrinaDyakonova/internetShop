@@ -16,14 +16,18 @@
 <br>
 <h2>Products</h2>
 <br>
-<a href="${pageContext.request.contextPath}/products/addProduct">Add product</a>
+<a href="${pageContext.request.contextPath}/products/showProductsAdmin">Work with products for admin</a>
 <br>
 <a href="${pageContext.request.contextPath}/products/injectDataProducts">Inject Data Products</a>
 <br>
-<a href="${pageContext.request.contextPath}/products/all">Show all products</a>
+<a href="${pageContext.request.contextPath}/products/all">Show all products and add their to Cart</a>
 <br>
 <h2>Shopping Cart</h2>
 <br>
 <a href="${pageContext.request.contextPath}/shoppingCarts/all">Show all shopping cart</a>
+<br>
+<h2>Orders</h2>
+<br>
+<a href="${pageContext.request.contextPath}/orders/all">Show all orders</a>
 </body>
 </html>

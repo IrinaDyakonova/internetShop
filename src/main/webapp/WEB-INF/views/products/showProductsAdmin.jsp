@@ -2,23 +2,23 @@
 <%--
   Created by IntelliJ IDEA.
   User: Irina
-  Date: 28.04.2020
-  Time: 15:20
+  Date: 29.04.2020
+  Time: 23:48
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Shopping carts</title>
+    <title>ProductsAdmin</title>
 </head>
 <body>
-<h1>All products shopping carts page</h1>
+<h1>List of products for editing</h1>
 <table border="1">
     <tr>
         <th>The product's name</th>
         <th>Product cost</th>
     </tr>
-    <c:forEach var="product" items="${allProductsShoppingCarts}">
+    <c:forEach var="product" items="${products}">
         <tr>
             <td>
                 <c:out value="${product.name}"/>
@@ -27,18 +27,13 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}
-                                    /products/deleteFromCart?id=${product.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/products/deleteAdmin?id=${product.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br>
-<form method="post" action="${pageContext.request.contextPath}/orders/add">
-    <input type="hidden" name="id" value="${shoppingCart.getUser().getId()}">
-    <button type="submit"> add order</button>
-</form>
-<br>
+<a href="${pageContext.request.contextPath}/products/addProduct">Add product to DB</a>
 <br>
 <a href="${pageContext.request.contextPath}/">Start page</a>
 </body>
