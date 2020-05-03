@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Irina
-  Date: 28.04.2020
-  Time: 15:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -26,9 +19,20 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
+            <td>
+                <a href="${pageContext.request.contextPath}
+                                    /products/deleteFromCart?id=${product.id}">Delete</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
+<br>
+<form method="post" action="${pageContext.request.contextPath}/orders/add">
+    <input type="hidden" name="id" value="${shoppingCart.getUser().getId()}">
+    <button type="submit"> add order</button>
+</form>
+<br>
+<br>
 <a href="${pageContext.request.contextPath}/">Start page</a>
 </body>
 </html>

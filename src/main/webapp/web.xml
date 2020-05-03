@@ -92,4 +92,77 @@
         <servlet-name>addProductToCart</servlet-name>
         <url-pattern>/products/add</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.CompleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addOrder</servlet-name>
+        <url-pattern>/orders/add</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>showOrder</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.ShowNewOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showOrder</servlet-name>
+        <url-pattern>/orders/new</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteProductFromCart</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.DeleteProductFromCartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteProductFromCart</servlet-name>
+        <url-pattern>/products/deleteFromCart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteProductAdmin</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.DeleteProductFromDatabaseController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteProductAdmin</servlet-name>
+        <url-pattern>/products/deleteAdmin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>showListProductAdmin</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.ShowAllProductsForAdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showListProductAdmin</servlet-name>
+        <url-pattern>/products/showProductsAdmin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>showAllOrdersDB</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.ShowAllOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showAllOrdersDB</servlet-name>
+        <url-pattern>/orders/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>showOrderByUser</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.ShowOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showOrderByUser</servlet-name>
+        <url-pattern>/orders/showOrdersByUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersDelete</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.DeleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrdersDelete</servlet-name>
+        <url-pattern>/orders/delete</url-pattern>
+    </servlet-mapping>
 </web-app>
