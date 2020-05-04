@@ -10,7 +10,7 @@
 <br>
 <a href="${pageContext.request.contextPath}/users/injectData">Inject Data Users</a>
 <br>
-<a href="${pageContext.request.contextPath}/users/registration">Registration</a>
+<a href="${pageContext.request.contextPath}/registration">Registration</a>
 <br>
 <a href="${pageContext.request.contextPath}/users/all">Show all users</a>
 <br>
