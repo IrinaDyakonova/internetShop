@@ -22,6 +22,7 @@
 <br>
 <a href="${pageContext.request.contextPath}/products/all">Show all products and add their to Cart</a>
 <br>
+<br>
 <h2>Shopping Cart</h2>
 <br>
 <a href="${pageContext.request.contextPath}/shoppingCarts/all">Show all shopping cart</a>
@@ -29,5 +30,7 @@
 <h2>Orders</h2>
 <br>
 <a href="${pageContext.request.contextPath}/orders/all">Show all orders</a>
+<br>
+<a href="${pageContext.request.contextPath}/orders/order">Show all order by user</a>
 </body>
 </html>
