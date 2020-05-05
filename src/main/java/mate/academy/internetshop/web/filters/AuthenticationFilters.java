@@ -13,7 +13,6 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.UserService;
 
 public class AuthenticationFilters implements Filter {
-    private static final String USER_ID = "user_id";
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
 
