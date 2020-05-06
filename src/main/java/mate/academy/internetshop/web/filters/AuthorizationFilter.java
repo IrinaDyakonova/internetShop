@@ -16,8 +16,10 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
+import org.apache.log4j.Logger;
 
 public class AuthorizationFilter implements Filter {
+    private static final Logger LOGGER = Logger.getLogger(AuthenticationFilters.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
     private Map<String, Set<Role.RoleName>> protectedUrls = new HashMap<>();
@@ -45,7 +47,7 @@ public class AuthorizationFilter implements Filter {
             return;
         }
         Long userId = (Long) req.getSession().getAttribute("user_id");
-        if (userId == null || userService.get(userId) == null) {
+        if (userId == null) {
             resp.sendRedirect("/login");
             return;
         }
@@ -53,6 +55,8 @@ public class AuthorizationFilter implements Filter {
         if (isAuthorized(user, protectedUrls.get(requestedUrl))) {
             chain.doFilter(req, resp);
         } else {
+            LOGGER.warn("User login = " + user.getLogin()
+                    + " and id = " + userId + " does not have access to the page");
             req.getRequestDispatcher("/WEB-INF/views/accessDenied.jsp").forward(req, resp);
         }
     }
