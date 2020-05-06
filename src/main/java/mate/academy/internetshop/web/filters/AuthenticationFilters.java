@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.UserService;
+import org.apache.log4j.Logger;
 
 public class AuthenticationFilters implements Filter {
+    private static final Logger LOGGER = Logger.getLogger(AuthenticationFilters.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
 
@@ -32,7 +34,8 @@ public class AuthenticationFilters implements Filter {
             return;
         }
         Long userId = (Long) req.getSession().getAttribute("user_id");
-        if (userId == null || userService.get(userId) == null) {
+        if (userId == null) {
+            LOGGER.warn("User is not in the database");
             resp.sendRedirect("/login");
             return;
         }

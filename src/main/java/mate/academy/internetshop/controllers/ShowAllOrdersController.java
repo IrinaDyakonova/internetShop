@@ -10,8 +10,10 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.OrderService;
+import org.apache.log4j.Logger;
 
 public class ShowAllOrdersController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(ShowAllOrdersController.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private OrderService orderService = (OrderService) INJECTOR.getInstance(OrderService.class);
 
@@ -22,6 +24,7 @@ public class ShowAllOrdersController extends HttpServlet {
         User user;
         if (allOrdersUser.isEmpty()) {
             user = null;
+            LOGGER.error("No orders in the database");
             req.setAttribute("massage", "You have no orders yet.");
         } else {
             user = allOrdersUser.get(0).getUser();
