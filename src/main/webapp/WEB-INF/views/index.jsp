@@ -32,5 +32,8 @@
 <a href="${pageContext.request.contextPath}/orders/all">Show all orders</a>
 <br>
 <a href="${pageContext.request.contextPath}/orders/order">Show all order by user</a>
+<br>
+<br>
+<a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>
