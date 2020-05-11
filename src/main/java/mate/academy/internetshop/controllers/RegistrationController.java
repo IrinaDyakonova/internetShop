@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,9 +37,18 @@ public class RegistrationController extends HttpServlet {
         String repeatPassword = req.getParameter("pwd-repeat");
 
         if (password.equals(repeatPassword)) {
-            User user = userService.create(new User(name, login, password));
+            User user = null;
+            try {
+                user = userService.create(new User(name, login, password));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             user.setRoles(Set.of(Role.of("USER")));
-            shoppingCartService.create(new ShoppingCart(user));
+            try {
+                shoppingCartService.create(new ShoppingCart(user.getId()));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("massage", "Your password and repeat password aren't the same.");

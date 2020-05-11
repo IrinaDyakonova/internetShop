@@ -2,15 +2,16 @@ package mate.academy.internetshop.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
     private Long id;
     private List<Product> products = new ArrayList<>();
-    private User user;
+    private Long userId;
 
-    public Order(User user, List<Product> products) {
+    public Order(Long userId, List<Product> products) {
         this.products = products;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -29,20 +30,39 @@ public class Order {
         this.products = products;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Order{"
                 + "id=" + id
-                + ", user=" + user
+                + ", userId=" + userId
                 + ", products=" + products
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order order = (Order) o;
+        return Objects.equals(id, order.id)
+                && Objects.equals(products, order.products)
+                && Objects.equals(userId, order.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, products, userId);
     }
 }

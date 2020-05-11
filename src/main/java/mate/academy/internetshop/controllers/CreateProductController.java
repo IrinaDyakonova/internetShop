@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,11 @@ public class CreateProductController extends HttpServlet {
             throws ServletException, IOException {
         String name = req.getParameter("name");
         String price = req.getParameter("price");
-        productService.create(new Product(name,Double.parseDouble(price)));
+        try {
+            productService.create(new Product(name,Double.parseDouble(price)));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         resp.sendRedirect(req.getContextPath() + "/");
 
     }

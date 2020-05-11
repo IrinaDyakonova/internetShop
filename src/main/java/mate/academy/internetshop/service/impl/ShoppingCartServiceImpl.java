@@ -1,5 +1,6 @@
 package mate.academy.internetshop.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import mate.academy.internetshop.dao.ShoppingCartDao;
@@ -39,7 +40,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartDao
                 .getAll()
                 .stream()
-                .filter(s -> s.getUser().getId().equals(userId))
+                .filter(s -> s.getUserId().equals(userId))
                 .findFirst()
                 .get();
     }
@@ -51,7 +52,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart create(ShoppingCart shoppingCart) {
+    public ShoppingCart create(ShoppingCart shoppingCart) throws SQLException {
         return shoppingCartDao.create(shoppingCart);
     }
 

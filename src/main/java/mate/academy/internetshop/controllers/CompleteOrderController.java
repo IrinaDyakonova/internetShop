@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,12 @@ public class CompleteOrderController extends HttpServlet {
         Long userId = (Long) req.getSession().getAttribute("user_id");
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
         List<Product> products = List.copyOf(shoppingCart.getProducts());
-        Order order = orderService.completeOrder(products, shoppingCart.getUser());
+        Order order = null;
+        try {
+            order = orderService.completeOrder(products, shoppingCart.getUserId());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         shoppingCart.getProducts().clear();
         req.setAttribute("order", order);
         req.setAttribute("products", products);

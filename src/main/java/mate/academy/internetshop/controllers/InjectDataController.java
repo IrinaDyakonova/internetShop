@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,18 +29,34 @@ public class InjectDataController extends HttpServlet {
             throws ServletException, IOException {
         User nicole = new User("Nicole", "NicoleSivolap", "06122014");
         nicole.setRoles(Set.of(Role.of("USER")));
-        userService.create(nicole);
+        try {
+            userService.create(nicole);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         User alice = new User("Alice", "AliceSivolap","04092016");
         alice.setRoles(Set.of(Role.of("USER")));
-        userService.create(alice);
+        try {
+            userService.create(alice);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         User admin = new User("Helen", "admin","19051988");
         admin.setRoles(Set.of(Role.of("ADMIN")));
-        userService.create(admin);
+        try {
+            userService.create(admin);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
-        ShoppingCart shoppingCart = new ShoppingCart(nicole);
-        shoppingCartService.create(shoppingCart);
+        ShoppingCart shoppingCart = new ShoppingCart(nicole.getId());
+        try {
+            shoppingCartService.create(shoppingCart);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         req.getRequestDispatcher("/WEB-INF/views/users/injectData.jsp").forward(req, resp);
     }
 }

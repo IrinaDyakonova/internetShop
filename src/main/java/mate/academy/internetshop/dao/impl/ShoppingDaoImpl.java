@@ -38,7 +38,7 @@ public class ShoppingDaoImpl implements ShoppingCartDao {
                 .get();
 
         shoppingCartThatNeedUpdate.setProducts(shoppingCart.getProducts());
-        shoppingCartThatNeedUpdate.setUser(shoppingCart.getUser());
+        shoppingCartThatNeedUpdate.setUserId(shoppingCart.getUserId());
         return shoppingCartThatNeedUpdate;
     }
 

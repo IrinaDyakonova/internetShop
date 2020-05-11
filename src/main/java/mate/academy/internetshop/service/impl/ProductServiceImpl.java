@@ -1,5 +1,6 @@
 package mate.academy.internetshop.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import mate.academy.internetshop.dao.ProductDao;
 import mate.academy.internetshop.lib.Inject;
@@ -13,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product create(Product product) {
+    public Product create(Product product) throws SQLException {
         return productDao.create(product);
     }
 
