@@ -36,13 +36,13 @@ public class ProductDaoJdbcImpl implements ProductDao {
             }
             LOGGER.info("The product " + product.getId() + " created");
             return product;
-        } catch (SQLException e) {
+        } catch (DataProcessingException e) {
             throw new DataProcessingException("Can't create the product", e);
         }
     }
 
     @Override
-    public Optional<Product> get(Long id) {
+    public Optional<Product> get(Long id) throws SQLException {
         String query = "SELECT * FROM products WHERE product_id=?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);

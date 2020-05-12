@@ -29,10 +29,11 @@ public class CreateProductController extends HttpServlet {
         String price = req.getParameter("price");
         try {
             productService.create(new Product(name,Double.parseDouble(price)));
+            resp.sendRedirect(req.getContextPath() + "/");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            resp.sendRedirect(req.getContextPath() + "/error");
         }
-        resp.sendRedirect(req.getContextPath() + "/");
 
     }
 }

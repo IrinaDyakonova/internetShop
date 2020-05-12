@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface GenericDao<T, K> {
     T create(T element) throws SQLException;
 
-    Optional<T> get(K id);
+    Optional<T> get(K id) throws SQLException;
 
     List<T> getAll();
 
