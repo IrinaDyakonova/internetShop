@@ -30,9 +30,10 @@ public class CreateProductController extends HttpServlet {
         try {
             productService.create(new Product(name,Double.parseDouble(price)));
             resp.sendRedirect(req.getContextPath() + "/");
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-            resp.sendRedirect(req.getContextPath() + "/error");
+        } catch (DataProcessingException throwable) {
+            req.setAttribute("massage", "Don't correct name or price");
+            req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                    .forward(req, resp);
         }
     }
 }

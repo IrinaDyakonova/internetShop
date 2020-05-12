@@ -24,24 +24,15 @@ public class InjectProductsController extends HttpServlet {
         Product coconut = new Product("coconut",99.99);
         try {
             productService.create(kiwi);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
             productService.create(orange);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
             productService.create(mango);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
             productService.create(coconut);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException throwable) {
+            req.setAttribute("massage", "Don't inject products data controller");
+            req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                    .forward(req, resp);
         }
+
         req.getRequestDispatcher("/WEB-INF/views/products/injectDataProducts.jsp")
                 .forward(req, resp);
     }

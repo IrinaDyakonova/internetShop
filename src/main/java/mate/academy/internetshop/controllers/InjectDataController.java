@@ -29,33 +29,20 @@ public class InjectDataController extends HttpServlet {
             throws ServletException, IOException {
         User nicole = new User("Nicole", "NicoleSivolap", "06122014");
         nicole.setRoles(Set.of(Role.of("USER")));
-        try {
-            userService.create(nicole);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
-
         User alice = new User("Alice", "AliceSivolap","04092016");
         alice.setRoles(Set.of(Role.of("USER")));
-        try {
-            userService.create(alice);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
-
         User admin = new User("Helen", "admin","19051988");
         admin.setRoles(Set.of(Role.of("ADMIN")));
-        try {
-            userService.create(admin);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
-
         ShoppingCart shoppingCart = new ShoppingCart(nicole.getId());
         try {
+            userService.create(nicole);
+            userService.create(alice);
+            userService.create(admin);
             shoppingCartService.create(shoppingCart);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException throwable) {
+            req.setAttribute("massage", "Don't inject data controller");
+            req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                    .forward(req, resp);
         }
         req.getRequestDispatcher("/WEB-INF/views/users/injectData.jsp").forward(req, resp);
     }
