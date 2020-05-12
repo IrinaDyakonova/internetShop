@@ -1,11 +1,11 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.ShoppingCart;
@@ -29,7 +29,7 @@ public class DeleteProductFromCartController extends HttpServlet {
         Product product = null;
         try {
             product = productService.get(id);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         shoppingCartService.deleteProduct(shoppingCart,product);

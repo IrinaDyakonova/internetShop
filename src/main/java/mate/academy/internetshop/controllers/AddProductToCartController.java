@@ -1,11 +1,11 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.service.ProductService;
@@ -28,7 +28,7 @@ public class AddProductToCartController extends HttpServlet {
         try {
             shoppingCartService
                     .addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         resp.sendRedirect(req.getContextPath() + "/products/all");

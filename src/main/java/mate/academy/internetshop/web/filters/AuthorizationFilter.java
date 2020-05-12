@@ -1,7 +1,6 @@
 package mate.academy.internetshop.web.filters;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
@@ -55,7 +55,7 @@ public class AuthorizationFilter implements Filter {
         User user = null;
         try {
             user = userService.get(userId);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         if (isAuthorized(user, protectedUrls.get(requestedUrl))) {

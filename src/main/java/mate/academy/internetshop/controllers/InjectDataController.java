@@ -1,12 +1,12 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.ShoppingCart;
@@ -31,7 +31,7 @@ public class InjectDataController extends HttpServlet {
         nicole.setRoles(Set.of(Role.of("USER")));
         try {
             userService.create(nicole);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
 
@@ -39,7 +39,7 @@ public class InjectDataController extends HttpServlet {
         alice.setRoles(Set.of(Role.of("USER")));
         try {
             userService.create(alice);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
 
@@ -47,14 +47,14 @@ public class InjectDataController extends HttpServlet {
         admin.setRoles(Set.of(Role.of("ADMIN")));
         try {
             userService.create(admin);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
 
         ShoppingCart shoppingCart = new ShoppingCart(nicole.getId());
         try {
             shoppingCartService.create(shoppingCart);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         req.getRequestDispatcher("/WEB-INF/views/users/injectData.jsp").forward(req, resp);

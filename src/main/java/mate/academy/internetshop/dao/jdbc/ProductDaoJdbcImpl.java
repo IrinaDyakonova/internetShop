@@ -19,7 +19,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
     private static final Logger LOGGER = Logger.getLogger(ConnectionUtil.class);
 
     @Override
-    public Product create(Product product) throws SQLException {
+    public Product create(Product product) {
         String query =
                 "INSERT INTO products (product_name, product_price) VALUES (?, ?)";
 
@@ -36,13 +36,13 @@ public class ProductDaoJdbcImpl implements ProductDao {
             }
             LOGGER.info("The product " + product.getId() + " created");
             return product;
-        } catch (DataProcessingException e) {
+        } catch (SQLException e) {
             throw new DataProcessingException("Can't create the product", e);
         }
     }
 
     @Override
-    public Optional<Product> get(Long id) throws SQLException {
+    public Optional<Product> get(Long id) {
         String query = "SELECT * FROM products WHERE product_id=?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);

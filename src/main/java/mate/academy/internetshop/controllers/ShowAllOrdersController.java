@@ -1,12 +1,12 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.User;
@@ -32,7 +32,7 @@ public class ShowAllOrdersController extends HttpServlet {
         } else {
             try {
                 user = userService.get(allOrdersUser.get(0).getUserId());
-            } catch (SQLException throwables) {
+            } catch (DataProcessingException throwables) {
                 throwables.printStackTrace();
             }
         }

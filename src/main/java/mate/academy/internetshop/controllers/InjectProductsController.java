@@ -1,11 +1,11 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
@@ -24,22 +24,22 @@ public class InjectProductsController extends HttpServlet {
         Product coconut = new Product("coconut",99.99);
         try {
             productService.create(kiwi);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         try {
             productService.create(orange);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         try {
             productService.create(mango);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         try {
             productService.create(coconut);
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         req.getRequestDispatcher("/WEB-INF/views/products/injectDataProducts.jsp")

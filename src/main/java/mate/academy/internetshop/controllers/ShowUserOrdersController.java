@@ -1,12 +1,12 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.service.OrderService;
@@ -26,13 +26,13 @@ public class ShowUserOrdersController extends HttpServlet {
         List<Order> userOrders = null;
         try {
             userOrders = orderService.getUserOrders(userService.get(userId));
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         req.setAttribute("orders", userOrders);
         try {
             req.setAttribute("user", userService.get(userId));
-        } catch (SQLException throwables) {
+        } catch (DataProcessingException throwables) {
             throwables.printStackTrace();
         }
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowAllOrdersByOneUser.jsp")

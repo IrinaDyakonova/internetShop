@@ -1,12 +1,12 @@
 package mate.academy.internetshop.service;
 
-import java.sql.SQLException;
 import java.util.List;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 
 public interface GenericService<T, K> {
-    T create(T t) throws SQLException;
+    T create(T t) throws DataProcessingException;
 
-    T get(K id) throws SQLException;
+    T get(K id) throws DataProcessingException;
 
     List<T> getAll();
 
