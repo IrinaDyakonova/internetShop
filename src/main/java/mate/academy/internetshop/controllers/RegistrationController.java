@@ -37,17 +37,15 @@ public class RegistrationController extends HttpServlet {
         String repeatPassword = req.getParameter("pwd-repeat");
 
         if (password.equals(repeatPassword)) {
-            User user = null;
+            User user;
             try {
                 user = userService.create(new User(name, login, password));
-            } catch (DataProcessingException throwables) {
-                throwables.printStackTrace();
-            }
-            user.setRoles(Set.of(Role.of("USER")));
-            try {
+                user.setRoles(Set.of(Role.of("USER")));
                 shoppingCartService.create(new ShoppingCart(user.getId()));
-            } catch (DataProcessingException throwables) {
-                throwables.printStackTrace();
+            } catch (DataProcessingException throwable) {
+                req.setAttribute("massage", throwable.getMessage());
+                req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                        .forward(req, resp);
             }
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
