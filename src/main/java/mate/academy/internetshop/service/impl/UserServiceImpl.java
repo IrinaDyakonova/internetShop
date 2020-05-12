@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(Long id) {
-        return userDao.get(id).get();
+    public User get(Long id) throws SQLException {
+        return userDao.get(id).orElseThrow();
     }
 
     @Override

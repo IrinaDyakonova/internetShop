@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,12 @@ public class DeleteProductFromCartController extends HttpServlet {
         Long id = Long.valueOf(productId);
         Long userId = (Long) req.getSession().getAttribute("user_id");
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
-        Product product = productService.get(id);
+        Product product = null;
+        try {
+            product = productService.get(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         shoppingCartService.deleteProduct(shoppingCart,product);
 
         resp.sendRedirect(req.getContextPath() + "/shoppingCarts/all");

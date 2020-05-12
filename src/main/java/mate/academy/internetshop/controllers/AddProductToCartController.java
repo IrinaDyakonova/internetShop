@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,12 @@ public class AddProductToCartController extends HttpServlet {
         String productId = req.getParameter("id");
         Long userId = (Long) req.getSession().getAttribute("user_id");
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
-        shoppingCartService.addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
+        try {
+            shoppingCartService
+                    .addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         resp.sendRedirect(req.getContextPath() + "/products/all");
     }
 }

@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,13 +24,17 @@ public class ShowAllOrdersController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<Order> allOrdersUser = orderService.getAll();
-        User user;
+        User user = null;
         if (allOrdersUser.isEmpty()) {
             user = null;
             LOGGER.error("No orders in the database");
             req.setAttribute("massage", "You have no orders yet.");
         } else {
-            user = userService.get(allOrdersUser.get(0).getUserId());
+            try {
+                user = userService.get(allOrdersUser.get(0).getUserId());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         req.setAttribute("orders", allOrdersUser);
         req.setAttribute("user", user);

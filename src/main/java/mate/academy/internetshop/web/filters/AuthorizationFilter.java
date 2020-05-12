@@ -1,6 +1,7 @@
 package mate.academy.internetshop.web.filters;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -51,7 +52,12 @@ public class AuthorizationFilter implements Filter {
             resp.sendRedirect("/login");
             return;
         }
-        User user = userService.get(userId);
+        User user = null;
+        try {
+            user = userService.get(userId);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         if (isAuthorized(user, protectedUrls.get(requestedUrl))) {
             chain.doFilter(req, resp);
         } else {

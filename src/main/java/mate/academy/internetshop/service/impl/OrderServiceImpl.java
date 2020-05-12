@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order get(Long id) {
+    public Order get(Long id) throws SQLException {
         return orderDao.get(id).get();
     }
 

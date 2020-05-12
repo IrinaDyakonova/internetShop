@@ -6,7 +6,7 @@ import java.util.List;
 public interface GenericService<T, K> {
     T create(T t) throws SQLException;
 
-    T get(K id);
+    T get(K id) throws SQLException;
 
     List<T> getAll();
 

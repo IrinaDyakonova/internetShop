@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(Long id) {
+    public Product get(Long id) throws SQLException {
         return productDao.get(id).get();
     }
 

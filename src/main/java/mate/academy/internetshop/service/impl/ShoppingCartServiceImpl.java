@@ -57,7 +57,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart get(Long id) {
+    public ShoppingCart get(Long id) throws SQLException {
         return shoppingCartDao.get(id).get();
     }
 

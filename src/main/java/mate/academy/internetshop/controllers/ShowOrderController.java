@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,12 @@ public class ShowOrderController extends HttpServlet {
             throws ServletException, IOException {
         String orderId = req.getParameter("id");
         Long id = Long.valueOf(orderId);
-        Order order = orderService.get(id);
+        Order order = null;
+        try {
+            order = orderService.get(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         req.setAttribute("order", order);
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowOrderByOneUser.jsp")
                 .forward(req, resp);
