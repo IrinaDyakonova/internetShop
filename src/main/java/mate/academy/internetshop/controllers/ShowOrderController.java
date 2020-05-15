@@ -22,8 +22,8 @@ public class ShowOrderController extends HttpServlet {
         Order order = null;
         try {
             order = orderService.get(id);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException e) {
+            new DataProcessingException("Can't receive order",e);
         }
         req.setAttribute("order", order);
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowOrderByOneUser.jsp")

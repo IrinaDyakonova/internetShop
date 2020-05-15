@@ -21,8 +21,8 @@ public class ShowNewOrderController extends HttpServlet {
         Long userId = (Long) req.getSession().getAttribute("user_id");
         try {
             Order order = orderService.get(userId);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException e) {
+            new DataProcessingException("Can't creat order",e);
         }
         req.getRequestDispatcher("/WEB-INF/views/orders/new.jsp")
                 .forward(req, resp);

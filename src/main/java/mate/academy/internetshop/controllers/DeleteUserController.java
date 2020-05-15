@@ -16,8 +16,7 @@ public class DeleteUserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String userId = req.getParameter("id");
-        Long id = Long.valueOf(userId);
-        boolean delete = userService.delete(id);
+        boolean delete = userService.delete(Long.valueOf(userId));
         resp.sendRedirect(req.getContextPath() + "/users/all");
     }
 }

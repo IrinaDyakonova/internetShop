@@ -28,12 +28,12 @@ public class ShowAllOrdersController extends HttpServlet {
         if (allOrdersUser.isEmpty()) {
             user = null;
             LOGGER.error("No orders in the database");
-            req.setAttribute("massage", "You have no orders yet.");
+            req.setAttribute("message", "You have no orders yet.");
         } else {
             try {
                 user = userService.get(allOrdersUser.get(0).getUserId());
-            } catch (DataProcessingException throwables) {
-                throwables.printStackTrace();
+            } catch (DataProcessingException e) {
+                new DataProcessingException("Can't receive list of orders",e);
             }
         }
         req.setAttribute("orders", allOrdersUser);

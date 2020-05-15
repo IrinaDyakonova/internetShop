@@ -26,15 +26,11 @@ public class ShowUserOrdersController extends HttpServlet {
         List<Order> userOrders = null;
         try {
             userOrders = orderService.getUserOrders(userService.get(userId));
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException e) {
+            new DataProcessingException("Can't receive list of orders by one user",e);
         }
         req.setAttribute("orders", userOrders);
-        try {
-            req.setAttribute("user", userService.get(userId));
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
-        }
+        req.setAttribute("user", userService.get(userId));
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowAllOrdersByOneUser.jsp")
                 .forward(req, resp);
     }

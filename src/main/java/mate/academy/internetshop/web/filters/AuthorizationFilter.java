@@ -31,6 +31,7 @@ public class AuthorizationFilter implements Filter {
         protectedUrls.put("/products/showProductsAdmin", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/products/injectDataProducts", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/orders/all", Set.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/shoppingCarts/all", Set.of(Role.RoleName.USER));
         protectedUrls.put("/orders/add", Set.of(Role.RoleName.USER));
         protectedUrls.put("/orders/order", Set.of(Role.RoleName.USER));
         protectedUrls.put("/products/all", Set.of(Role.RoleName.USER));
@@ -55,8 +56,8 @@ public class AuthorizationFilter implements Filter {
         User user = null;
         try {
             user = userService.get(userId);
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException e) {
+            throw new DataProcessingException("Can't extract user " + userId, e);
         }
         if (isAuthorized(user, protectedUrls.get(requestedUrl))) {
             chain.doFilter(req, resp);
@@ -73,8 +74,12 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isAuthorized(User user, Set<Role.RoleName> authorizedRoles) {
+        System.out.println("userRole.size " + user.getRoles().size());
+
         for (Role.RoleName authorizedRole: authorizedRoles) {
+            System.out.println("! - " + authorizedRole.toString());
             for (Role userRole: user.getRoles()) {
+                System.out.println("!!! - " + userRole.getRoleName().toString());
                 if (authorizedRole.equals(userRole.getRoleName())) {
                     return true;
                 }

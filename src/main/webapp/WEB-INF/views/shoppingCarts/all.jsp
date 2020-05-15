@@ -27,10 +27,12 @@
     </c:forEach>
 </table>
 <br>
+<c:if test="${allProductsShoppingCarts.size() > 0 }" >
 <form method="post" action="${pageContext.request.contextPath}/orders/add">
-    <input type="hidden" name="id" value="${shoppingCart.getUser().getId()}">
+    <input type="hidden" name="id" value="${shoppingCart.getUserId()}">
     <button type="submit"> add order</button>
 </form>
+</c:if>
 <br>
 <br>
 <a href="${pageContext.request.contextPath}/">Start page</a>

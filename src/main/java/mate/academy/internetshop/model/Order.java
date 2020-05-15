@@ -9,7 +9,16 @@ public class Order {
     private List<Product> products = new ArrayList<>();
     private Long userId;
 
+    public Order() {
+    }
+
     public Order(Long userId, List<Product> products) {
+        this.products = products;
+        this.userId = userId;
+    }
+
+    public Order(Long orderId, Long userId, List<Product> products) {
+        this.id = orderId;
         this.products = products;
         this.userId = userId;
     }

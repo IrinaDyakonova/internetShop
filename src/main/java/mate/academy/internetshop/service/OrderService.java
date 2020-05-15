@@ -8,7 +8,7 @@ import mate.academy.internetshop.model.User;
 
 public interface OrderService extends GenericService<Order, Long> {
 
-    Order completeOrder(List<Product> products, Long userId) throws SQLException;
+    Order completeOrder(List<Product> products, Long userId, Long shopCartId) throws SQLException;
 
     List<Order> getUserOrders(User user);
 

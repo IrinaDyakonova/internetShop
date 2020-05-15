@@ -29,7 +29,6 @@ public class ProductDaoJdbcImpl implements ProductDao {
             statement.setString(1, product.getName());
             statement.setDouble(2, product.getPrice());
             statement.executeUpdate();
-
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
                 product.setId(resultSet.getLong(1));
@@ -54,7 +53,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             LOGGER.info("The product " + id + " extracted");
             return Optional.empty();
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't extract the product #" + id, e);
+            throw new DataProcessingException("Can't extract the product " + id, e);
         }
     }
 
@@ -73,7 +72,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             throw new DataProcessingException("Unable to update the product "
                     + product.getId(), e);
         }
-        return null;
+        return product;
     }
 
     @Override

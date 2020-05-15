@@ -28,8 +28,8 @@ public class AddProductToCartController extends HttpServlet {
         try {
             shoppingCartService
                     .addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
-        } catch (DataProcessingException throwables) {
-            throwables.printStackTrace();
+        } catch (DataProcessingException e) {
+            new DataProcessingException("Can't add product to cart",e);
         }
         resp.sendRedirect(req.getContextPath() + "/products/all");
     }

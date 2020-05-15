@@ -16,12 +16,14 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User create(User user) throws DataProcessingException {
+    public User create(User user)
+            throws DataProcessingException {
         return userDao.create(user);
     }
 
     @Override
-    public User get(Long id) throws DataProcessingException {
+    public User get(Long id)
+            throws DataProcessingException {
         return userDao.get(id).orElseThrow();
     }
 
@@ -44,4 +46,5 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByLogin(String login) {
         return userDao.findByLogin(login);
     }
+
 }

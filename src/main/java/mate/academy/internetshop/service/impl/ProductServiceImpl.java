@@ -14,12 +14,14 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product create(Product product) throws DataProcessingException {
+    public Product create(Product product)
+            throws DataProcessingException {
         return productDao.create(product);
     }
 
     @Override
-    public Product get(Long id) throws DataProcessingException {
+    public Product get(Long id)
+            throws DataProcessingException {
         return productDao.get(id).get();
     }
 

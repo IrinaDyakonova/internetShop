@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.internetshop.dao.OrderDao;
+import mate.academy.internetshop.dao.ShoppingCartDao;
 import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
@@ -19,11 +20,17 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Inject
+    private ShoppingCartDao shoppingCartDao;
+
+    @Inject
     private ShoppingCartService shoppingCartService;
 
     @Override
-    public Order completeOrder(List<Product> products, Long userId) throws SQLException {
-        return orderDao.create(new Order(userId, products));
+    public Order completeOrder(List<Product> products, Long userId, Long shopCartId)
+            throws SQLException {
+        shoppingCartDao.delete(shopCartId);
+        Order order = orderDao.create(new Order(userId, products));
+        return order;
     }
 
     @Override
@@ -36,12 +43,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order create(Order order) throws DataProcessingException {
+    public Order create(Order order)
+            throws DataProcessingException {
         return orderDao.create(order);
     }
 
     @Override
-    public Order get(Long id) throws DataProcessingException {
+    public Order get(Long id)
+            throws DataProcessingException {
         return orderDao.get(id).get();
     }
 

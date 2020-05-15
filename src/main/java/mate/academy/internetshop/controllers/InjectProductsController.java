@@ -28,11 +28,10 @@ public class InjectProductsController extends HttpServlet {
             productService.create(mango);
             productService.create(coconut);
         } catch (DataProcessingException throwable) {
-            req.setAttribute("massage", "Don't inject products data controller");
+            req.setAttribute("massage", "Can't inject these products data into database again");
             req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
                     .forward(req, resp);
         }
-
         req.getRequestDispatcher("/WEB-INF/views/products/injectDataProducts.jsp")
                 .forward(req, resp);
     }
