@@ -74,12 +74,8 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isAuthorized(User user, Set<Role.RoleName> authorizedRoles) {
-        System.out.println("userRole.size " + user.getRoles().size());
-
         for (Role.RoleName authorizedRole: authorizedRoles) {
-            System.out.println("! - " + authorizedRole.toString());
             for (Role userRole: user.getRoles()) {
-                System.out.println("!!! - " + userRole.getRoleName().toString());
                 if (authorizedRole.equals(userRole.getRoleName())) {
                     return true;
                 }
