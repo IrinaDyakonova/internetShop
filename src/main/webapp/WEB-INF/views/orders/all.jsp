@@ -6,11 +6,11 @@
 </head>
 <body>
 <h1>All orders page</h1>
-<h4 style="color: red">${massage}</h4>
+<h4 style="color: red">${message}</h4>
 <table border="1">
     <tr>
-        <th>ID</th>
-        <th>Login User</th>
+        <th>Order id</th>
+        <th>User id</th>
     </tr>
     <c:forEach var="order" items="${orders}">
         <tr>
@@ -18,7 +18,7 @@
                 <c:out value="${order.id}"/>
             </td>
             <td>
-                <c:out value="${user.login}"/>
+                <c:out value="${order.userId}"/>
             </td>
             <td>
                 <a href="${pageContext.request.contextPath}

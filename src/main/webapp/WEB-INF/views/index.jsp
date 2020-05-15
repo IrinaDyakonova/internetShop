@@ -8,8 +8,6 @@
 <br>
 <h2>Users</h2>
 <br>
-<a href="${pageContext.request.contextPath}/users/injectData">Inject Data Users</a>
-<br>
 <a href="${pageContext.request.contextPath}/registration">Registration</a>
 <br>
 <a href="${pageContext.request.contextPath}/users/all">Show all users</a>
@@ -25,7 +23,7 @@
 <br>
 <h2>Shopping Cart</h2>
 <br>
-<a href="${pageContext.request.contextPath}/shoppingCarts/all">Show all shopping cart</a>
+<a href="${pageContext.request.contextPath}/shoppingCarts/all">Show all shopping cart by user</a>
 <br>
 <h2>Orders</h2>
 <br>

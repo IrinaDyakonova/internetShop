@@ -1,8 +1,8 @@
 package mate.academy.internetshop.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import mate.academy.internetshop.dao.ShoppingCartDao;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Product;
@@ -15,23 +15,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     ShoppingCartDao shoppingCartDao;
 
     @Override
-    public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
+    public boolean addProduct(ShoppingCart shoppingCart, Product product) {
         shoppingCart.getProducts().add(product);
-        return shoppingCartDao.update(shoppingCart);
+        return shoppingCartDao.addProductToShoppingCart(product.getId(), shoppingCart.getId());
     }
 
     @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        return shoppingCart
-                .getProducts()
-                .removeIf(p -> p.getId().equals(product.getId()));
-    }
-
-    @Override
-    public void clear(ShoppingCart shoppingCart) {
-        List<Product> newProductListOfUser = new ArrayList<>();
-        shoppingCart.setProducts(newProductListOfUser);
-        shoppingCartDao.update(shoppingCart);
+        return shoppingCartDao.deleteProductFromShoppingCart(product.getId(), shoppingCart.getId());
     }
 
     @Override
@@ -39,24 +30,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartDao
                 .getAll()
                 .stream()
-                .filter(s -> s.getUser().getId().equals(userId))
+                .filter(s -> s.getUserId().equals(userId))
                 .findFirst()
                 .get();
     }
 
     @Override
-    public List<Product> getAllProducts(ShoppingCart shoppingCart) {
-        return shoppingCart
-                .getProducts();
-    }
-
-    @Override
-    public ShoppingCart create(ShoppingCart shoppingCart) {
+    public ShoppingCart create(ShoppingCart shoppingCart)
+            throws DataProcessingException {
         return shoppingCartDao.create(shoppingCart);
     }
 
     @Override
-    public ShoppingCart get(Long id) {
+    public ShoppingCart get(Long id) throws DataProcessingException {
         return shoppingCartDao.get(id).get();
     }
 

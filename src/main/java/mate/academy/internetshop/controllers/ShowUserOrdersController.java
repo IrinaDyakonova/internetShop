@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.service.OrderService;
@@ -22,7 +23,12 @@ public class ShowUserOrdersController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Long userId = (Long) req.getSession().getAttribute("user_id");
-        List<Order> userOrders = orderService.getUserOrders(userService.get(userId));
+        List<Order> userOrders = null;
+        try {
+            userOrders = orderService.getUserOrders(userService.get(userId));
+        } catch (DataProcessingException e) {
+            new DataProcessingException("Can't receive list of orders by one user",e);
+        }
         req.setAttribute("orders", userOrders);
         req.setAttribute("user", userService.get(userId));
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowAllOrdersByOneUser.jsp")

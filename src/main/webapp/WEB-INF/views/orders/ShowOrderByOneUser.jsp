@@ -7,7 +7,7 @@
 <body>
 <h1>Order by one user</h1>
 <br>
-<h3> User name  <c:out value="${order.user.name}"/></h3>
+
 <h3> Order number <c:out value="${order.id}"/></h3>
 <table border="1">
 

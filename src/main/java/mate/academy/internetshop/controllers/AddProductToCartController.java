@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.service.ProductService;
@@ -24,7 +25,12 @@ public class AddProductToCartController extends HttpServlet {
         String productId = req.getParameter("id");
         Long userId = (Long) req.getSession().getAttribute("user_id");
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
-        shoppingCartService.addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
+        try {
+            shoppingCartService
+                    .addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
+        } catch (DataProcessingException e) {
+            new DataProcessingException("Can't add product to cart",e);
+        }
         resp.sendRedirect(req.getContextPath() + "/products/all");
     }
 }
