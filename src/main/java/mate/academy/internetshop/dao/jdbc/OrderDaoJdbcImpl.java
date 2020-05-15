@@ -86,7 +86,19 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Order update(Order element) {
-        return null;
+        deleteAllProductByOrder(element.getId());
+        String query = "INSERT INTO order_products(order_id, product_id) VALUES(?, ?)";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            for (Product product : element.getProducts()) {
+                statement.setLong(1, element.getId());
+                statement.setLong(2, product.getId());
+                statement.executeUpdate();
+            }
+            return element;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Update order failed", e);
+        }
     }
 
     @Override

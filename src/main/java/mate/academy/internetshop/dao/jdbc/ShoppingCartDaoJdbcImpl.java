@@ -83,7 +83,19 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
-        return null;
+        deleteAllProductFromShoppingCart(shoppingCart.getId());
+        String query = "INSERT INTO shopping_carts_products(card_id, product_id) VALUES(?, ?)";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            for (Product product : shoppingCart.getProducts()) {
+                statement.setLong(1, shoppingCart.getId());
+                statement.setLong(2, product.getId());
+                statement.executeUpdate();
+            }
+            return shoppingCart;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Update shoppingCart failed", e);
+        }
     }
 
     @Override
