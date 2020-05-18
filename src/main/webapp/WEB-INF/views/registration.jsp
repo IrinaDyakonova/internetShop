@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Hello! Please provide your user details</h1>
-    <h4 style="color: red">${massage}</h4>
+    <h4 style="color: red">${message}</h4>
     <form method="post" action="${pageContext.request.contextPath}/registration">
         Please provide your name: <input type="text" name="name" value="${oldName}" placeholder="Enter your name" required>
         <br>

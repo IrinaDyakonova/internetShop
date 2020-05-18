@@ -22,21 +22,21 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>exceptionInject</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.ExceptionInjectController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>exceptionInject</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>registration</servlet-name>
         <servlet-class>mate.academy.internetshop.controllers.RegistrationController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
         <url-pattern>/registration</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>injectData</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.InjectDataController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>injectData</servlet-name>
-        <url-pattern>/users/injectData</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -5,11 +5,11 @@
 </head>
 <body>
 <h1>Hello! Please provide your user details</h1>
-<h4 style="color: red">${massage}</h4>
+<h4 style="color: red">${message}</h4>
 <form method="post" action="${pageContext.request.contextPath}/products/addProduct">
     Enter product name: <input type="text" name="name">
     <br>
-    Enter product cost: <input type="number" name="price" step="0.01">
+    Enter product cost: <input type="number" name="price" step="0.01" min ="0">
     <br>
     <button type="submit">Register</button>
 </form>

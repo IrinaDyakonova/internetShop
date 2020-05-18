@@ -2,6 +2,7 @@ package mate.academy.internetshop.service.impl;
 
 import java.util.List;
 import mate.academy.internetshop.dao.ProductDao;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Product;
@@ -13,12 +14,14 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product create(Product product) {
+    public Product create(Product product)
+            throws DataProcessingException {
         return productDao.create(product);
     }
 
     @Override
-    public Product get(Long id) {
+    public Product get(Long id)
+            throws DataProcessingException {
         return productDao.get(id).get();
     }
 

@@ -17,8 +17,7 @@ public class DeleteProductFromDatabaseController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String productId = req.getParameter("id");
-        Long id = Long.valueOf(productId);
-        productService.delete(id);
+        productService.delete(Long.valueOf(productId));
         resp.sendRedirect(req.getContextPath() + "/products/showProductsAdmin");
     }
 }

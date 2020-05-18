@@ -1,13 +1,12 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.ShoppingCartService;
@@ -34,11 +33,16 @@ public class RegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("pwd");
         String repeatPassword = req.getParameter("pwd-repeat");
-
         if (password.equals(repeatPassword)) {
-            User user = userService.create(new User(name, login, password));
-            user.setRoles(Set.of(Role.of("USER")));
-            shoppingCartService.create(new ShoppingCart(user));
+            User user;
+            try {
+                user = userService.create(new User(name, login, password));
+                shoppingCartService.create(new ShoppingCart(user.getId()));
+            } catch (DataProcessingException throwable) {
+                req.setAttribute("massage", throwable.getMessage());
+                req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                        .forward(req, resp);
+            }
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("massage", "Your password and repeat password aren't the same.");

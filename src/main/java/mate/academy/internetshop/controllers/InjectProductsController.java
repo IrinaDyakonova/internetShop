@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
@@ -21,10 +22,16 @@ public class InjectProductsController extends HttpServlet {
         Product orange = new Product("orange",34.99);
         Product mango = new Product("mango",75.99);
         Product coconut = new Product("coconut",99.99);
-        productService.create(kiwi);
-        productService.create(orange);
-        productService.create(mango);
-        productService.create(coconut);
+        try {
+            productService.create(kiwi);
+            productService.create(orange);
+            productService.create(mango);
+            productService.create(coconut);
+        } catch (DataProcessingException throwable) {
+            req.setAttribute("massage", "Can't inject these products data into database again");
+            req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                    .forward(req, resp);
+        }
         req.getRequestDispatcher("/WEB-INF/views/products/injectDataProducts.jsp")
                 .forward(req, resp);
     }

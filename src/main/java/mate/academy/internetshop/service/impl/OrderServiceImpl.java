@@ -1,8 +1,11 @@
 package mate.academy.internetshop.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.internetshop.dao.OrderDao;
+import mate.academy.internetshop.dao.ShoppingCartDao;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Order;
@@ -17,11 +20,17 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Inject
+    private ShoppingCartDao shoppingCartDao;
+
+    @Inject
     private ShoppingCartService shoppingCartService;
 
     @Override
-    public Order completeOrder(List<Product> products, User user) {
-        return orderDao.create(new Order(user, products));
+    public Order completeOrder(List<Product> products, Long userId, Long shopCartId)
+            throws SQLException {
+        shoppingCartDao.delete(shopCartId);
+        Order order = orderDao.create(new Order(userId, products));
+        return order;
     }
 
     @Override
@@ -29,17 +38,19 @@ public class OrderServiceImpl implements OrderService {
         return orderDao
                 .getAll()
                 .stream()
-                .filter(order -> order.getUser().getId().equals(user.getId()))
+                .filter(order -> order.getUserId().equals(user.getId()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Order create(Order order) {
+    public Order create(Order order)
+            throws DataProcessingException {
         return orderDao.create(order);
     }
 
     @Override
-    public Order get(Long id) {
+    public Order get(Long id)
+            throws DataProcessingException {
         return orderDao.get(id).get();
     }
 

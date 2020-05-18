@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.exceptions.DataProcessingException;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
@@ -26,8 +27,13 @@ public class CreateProductController extends HttpServlet {
             throws ServletException, IOException {
         String name = req.getParameter("name");
         String price = req.getParameter("price");
-        productService.create(new Product(name,Double.parseDouble(price)));
-        resp.sendRedirect(req.getContextPath() + "/");
-
+        try {
+            productService.create(new Product(name,Double.parseDouble(price)));
+            resp.sendRedirect(req.getContextPath() + "/");
+        } catch (DataProcessingException throwable) {
+            req.setAttribute("message", throwable.getMessage());
+            req.getRequestDispatcher("/WEB-INF/views/exceptionInject.jsp")
+                    .forward(req, resp);
+        }
     }
 }
