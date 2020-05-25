@@ -17,7 +17,8 @@ import org.apache.log4j.Logger;
 public class ShowAllOrdersController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(ShowAllOrdersController.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
-    private final OrderService orderService = (OrderService) INJECTOR.getInstance(OrderService.class);
+    private final OrderService orderService =
+            (OrderService) INJECTOR.getInstance(OrderService.class);
     private final UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override

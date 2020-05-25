@@ -1,7 +1,6 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,7 @@ public class AddProductToCartController extends HttpServlet {
             shoppingCartService
                     .addProduct(shoppingCart, productService.get(Long.valueOf(productId)));
         } catch (DataProcessingException e) {
-           throw new DataProcessingException("Can't add product to cart",e);
+            throw new DataProcessingException("Can't add product to cart",e);
         }
         resp.sendRedirect(req.getContextPath() + "/products/all");
     }

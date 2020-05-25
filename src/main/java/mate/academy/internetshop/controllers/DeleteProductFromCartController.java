@@ -1,7 +1,6 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,7 @@ public class DeleteProductFromCartController extends HttpServlet {
         try {
             product = productService.get(Long.valueOf(productId));
         } catch (DataProcessingException e) {
-           throw new DataProcessingException("Can't delete product from cart",e);
+            throw new DataProcessingException("Can't delete product from cart",e);
 
         }
         shoppingCartService.deleteProduct(shoppingCart,product);

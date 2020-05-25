@@ -27,7 +27,7 @@ public class ShowUserOrdersController extends HttpServlet {
         try {
             userOrders = orderService.getUserOrders(userService.get(userId));
         } catch (DataProcessingException e) {
-           throw new DataProcessingException("Can't receive list of orders by one user",e);
+            throw new DataProcessingException("Can't receive list of orders by one user",e);
         }
         req.setAttribute("orders", userOrders);
         req.setAttribute("user", userService.get(userId));

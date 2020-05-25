@@ -33,7 +33,7 @@ public class CompleteOrderController extends HttpServlet {
             order = orderService
                     .completeOrder(products, shoppingCart.getUserId(), shoppingCart.getId());
         } catch (SQLException e) {
-           throw new DataProcessingException("Can't creat order",e);
+            throw new DataProcessingException("Can't creat order",e);
         }
         req.setAttribute("order", order);
         req.setAttribute("products", products);
