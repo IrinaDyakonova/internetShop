@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class UserDaoJdbcImpl implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(ConnectionUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
 
     @Override
     public Optional<User> findByLogin(String login) {
@@ -41,7 +41,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) throws DataProcessingException {
         String query =
-                "INSERT INTO users (user_name, user_login, password) VALUES (?, ?, ?)";
+                "INSERT INTO users (user_name, user_login, password, salt) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement =
@@ -49,6 +49,7 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
+            statement.setBytes(4, user.getSalt());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -226,7 +227,8 @@ public class UserDaoJdbcImpl implements UserDao {
         String userName = resultSet.getString("user_name");
         String userLogin = resultSet.getString("user_login");
         String userPassword = resultSet.getString("password");
-        return new User(userId, userName, userLogin, userPassword);
+        byte [] userSalt = resultSet.getBytes("salt");
+        return new User(userId, userName, userLogin, userPassword, userSalt);
     }
 
     private boolean attachRoleByUser(Long userId) {

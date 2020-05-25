@@ -54,6 +54,7 @@ CREATE TABLE `users` (
   `user_name` varchar(225) NOT NULL,
   `user_login` varchar(225) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `salt` VARBINARY(500) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_login_UNIQUE` (`user_login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;

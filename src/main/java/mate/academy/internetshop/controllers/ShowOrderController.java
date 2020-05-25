@@ -12,7 +12,8 @@ import mate.academy.internetshop.service.OrderService;
 
 public class ShowOrderController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
-    private OrderService orderService = (OrderService) INJECTOR.getInstance(OrderService.class);
+    private final OrderService orderService =
+            (OrderService) INJECTOR.getInstance(OrderService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -23,7 +24,7 @@ public class ShowOrderController extends HttpServlet {
         try {
             order = orderService.get(id);
         } catch (DataProcessingException e) {
-            new DataProcessingException("Can't receive order",e);
+            throw new DataProcessingException("Can't receive order",e);
         }
         req.setAttribute("order", order);
         req.getRequestDispatcher("/WEB-INF/views/orders/ShowOrderByOneUser.jsp")

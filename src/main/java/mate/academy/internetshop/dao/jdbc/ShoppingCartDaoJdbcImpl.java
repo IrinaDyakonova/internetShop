@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
-    private static final Logger LOGGER = Logger.getLogger(ConnectionUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(ShoppingCartDaoJdbcImpl.class);
 
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
@@ -48,9 +48,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            ShoppingCart shoppingCart = new ShoppingCart();
             if (resultSet.next()) {
-                shoppingCart = getShoppingCartFromResultSet(resultSet);
+                ShoppingCart shoppingCart = getShoppingCartFromResultSet(resultSet);
                 return Optional.of(shoppingCart);
             }
             LOGGER.info("The shoppingCart " + id + " extracted");
