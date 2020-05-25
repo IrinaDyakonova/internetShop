@@ -10,13 +10,13 @@ import mate.academy.internetshop.service.UserService;
 
 public class DeleteUserController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
-    private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
+    private final UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         String userId = req.getParameter("id");
-        boolean delete = userService.delete(Long.valueOf(userId));
+        userService.delete(Long.valueOf(userId));
         resp.sendRedirect(req.getContextPath() + "/users/all");
     }
 }

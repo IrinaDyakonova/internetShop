@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 public class LoginController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
-    private AuthenticationService authService =
+    private final AuthenticationService authService =
             (AuthenticationService) INJECTOR.getInstance(AuthenticationService.class);
 
     @Override

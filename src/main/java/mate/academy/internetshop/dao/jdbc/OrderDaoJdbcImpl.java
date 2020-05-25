@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoJdbcImpl implements OrderDao {
-    private static final Logger LOGGER = Logger.getLogger(ConnectionUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(OrderDaoJdbcImpl.class);
 
     @Override
     public Order create(Order order) {

@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class UserDaoJdbcImpl implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(ConnectionUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
 
     @Override
     public Optional<User> findByLogin(String login) {
