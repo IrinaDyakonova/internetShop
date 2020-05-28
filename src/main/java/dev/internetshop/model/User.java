@@ -22,6 +22,7 @@ public class User {
         this.login = login;
         this.password = password;
         this.salt = salt;
+        this.roles.add(Role.of("USER"));
     }
 
     public User(Long id, String login, String password, byte[] salt, Set<Role> roles) {
@@ -36,6 +37,7 @@ public class User {
         this.name = name;
         this.login = login;
         this.password = password;
+        this.roles.add(Role.of("USER"));
     }
 
     public byte[] getSalt() {

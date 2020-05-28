@@ -36,6 +36,7 @@ public class RegistrationController extends HttpServlet {
         if (password.equals(repeatPassword)) {
             User user;
             try {
+
                 user = userService.create(new User(name, login, password));
                 shoppingCartService.create(new ShoppingCart(user.getId()));
             } catch (DataProcessingException throwable) {

@@ -54,7 +54,7 @@ public class UserDaoJdbcImpl implements UserDao {
             if (resultSet.next()) {
                 user.setId(resultSet.getLong(1));
             }
-            attachRoleByUser(user.getId());
+            attachRoleByUser(user);
             LOGGER.info("The user " + user.getId() + " created");
             return user;
         } catch (SQLException e) {
@@ -230,15 +230,17 @@ public class UserDaoJdbcImpl implements UserDao {
         return new User(userId, userName, userLogin, userPassword, userSalt);
     }
 
-    private boolean attachRoleByUser(Long userId) {
+    private boolean attachRoleByUser(User user) {
         String query =
                 "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement =
                     connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setLong(1, userId);
-            statement.setLong(2, getRoleIdByName(Role.RoleName.USER));
-            statement.executeUpdate();
+            statement.setLong(1, user.getId());
+            for (Role role: user.getRoles()) {
+                statement.setLong(2, getRoleIdByName(role.getRoleName()));
+                statement.executeUpdate();
+            }
             LOGGER.info("The role attached to by user");
             return true;
         } catch (SQLException e) {

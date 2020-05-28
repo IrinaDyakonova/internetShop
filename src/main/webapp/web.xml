@@ -31,6 +31,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>injectDBUsers</servlet-name>
+        <servlet-class>dev.internetshop.controllers.InjectDataController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>injectDBUsers</servlet-name>
+        <url-pattern>/inject/db/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>registration</servlet-name>
         <servlet-class>dev.internetshop.controllers.RegistrationController</servlet-class>
     </servlet>
