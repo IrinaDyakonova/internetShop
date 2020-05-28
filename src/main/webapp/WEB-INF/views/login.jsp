@@ -14,5 +14,8 @@
     <br>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+<br>
+<a href="${pageContext.request.contextPath}/inject/db/users">Inject user and admin in DB</a>
+<br>
 </body>
 </html>

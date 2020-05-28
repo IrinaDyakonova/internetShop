@@ -2,17 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>OrderOneUser</title>
+    <title>order</title>
 </head>
 <body>
-<h1> Show all orders by one User</h1>
-<h3> User name  <c:out value="${user.name}"/></h3>
-
-
-<h4 style="color: red">${massage}</h4>
+<h1>All orders page</h1>
+<h4 style="color: red">${message}</h4>
 <table border="1">
     <tr>
-        <th>ID</th>
+        <th>Order id</th>
+        <th>User id</th>
     </tr>
     <c:forEach var="order" items="${orders}">
         <tr>
@@ -20,8 +18,15 @@
                 <c:out value="${order.id}"/>
             </td>
             <td>
+                <c:out value="${order.userId}"/>
+            </td>
+            <td>
                 <a href="${pageContext.request.contextPath}
                                     /orders/show?id=${order.id}">Show</a>
+            </td>
+            <td>
+                <a href="${pageContext.request.contextPath}
+                                    /orders/delete?id=${order.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
