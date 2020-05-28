@@ -1,9 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Irina Dyakonova</title>
-</head>
 <h1>Internet-shop</h1>
 <h2>Project purpose</h2>
 <p>This is a template for creating an e-store.</p>
@@ -70,4 +64,3 @@ Available functions for all users:
 <hr>
 <h2 id="aut">Authors</h2>
 <a href="https://github.com/IrinaDyakonova">Irina Dyakonova</a>
-</html>
